@@ -2,6 +2,7 @@ import React from "react";
 import { SearchBar } from "./SearchBar";
 import { unsplash } from "../api/unsplash";
 import { ImageList } from "./ImageList";
+import { Spinner } from "./Spinner";
 
 const getScrollTop = () => {
   return !!window.pageYOffset
@@ -22,20 +23,20 @@ const getDocumentHeight = () => {
 };
 
 export class App extends React.Component {
-  state = { images: [], page: 1, term: "", isLoading: false };
+  state = { images: [], page: 1, term: "", isLoading: false, totalPages: 0 };
 
   componentDidMount = () => {
     window.addEventListener("scroll", this.onScrollHandler);
   };
 
-  onScrollHandler = async () => {
+  onScrollHandler = () => {
     if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
     if (this.state.term !== "" && !this.state.isLoading) {
       this.setState({ isLoading: true }, async () => {
         const response = await unsplash.get(`/search/photos/`, {
           params: {
             query: this.state.term,
-            per_page: 30,
+            per_page: 10,
             page: this.state.page + 1
           }
         });
@@ -54,11 +55,13 @@ export class App extends React.Component {
         const response = await unsplash.get(`/search/photos/`, {
           params: { query: term, per_page: 10, page: 1 }
         });
+        console.log(response);
         this.setState({
           images: response.data.results,
           term: term,
           page: 1,
-          isLoading: false
+          isLoading: false,
+          totalPages: response.data.total_pages
         });
       });
     }
@@ -68,8 +71,14 @@ export class App extends React.Component {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
+
+        {this.state.page >= this.state.totalPages ? (
+          <div>Finished</div>
+        ) : (
+          <div>{`${this.state.page} / ${this.state.totalPages}`}</div>
+        )}
         <ImageList images={this.state.images} />
-        {this.state.isLoading && <div>Loading...</div>}
+        <Spinner isLoading={this.state.isLoading} />
       </div>
     );
   }
