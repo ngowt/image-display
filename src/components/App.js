@@ -31,6 +31,7 @@ export class App extends React.Component {
 
   onScrollHandler = () => {
     if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
+    if (this.state.page >= this.state.totalPages) return;
     if (this.state.term !== "" && !this.state.isLoading) {
       this.setState({ isLoading: true }, async () => {
         const response = await unsplash.get(`/search/photos/`, {
@@ -83,5 +84,3 @@ export class App extends React.Component {
     );
   }
 }
-
-// Testing
