@@ -3,35 +3,34 @@ import { SearchBar } from "./SearchBar";
 import { unsplash } from "../api/unsplash";
 import { ImageList } from "./ImageList";
 import { Spinner } from "./Spinner";
-
-const getScrollTop = () => {
-  return !!window.pageYOffset
-    ? window.pageYOffset
-    : (document.documentElement || document.body.parentNode || document.body)
-        .scrollTop;
-};
-
-const getDocumentHeight = () => {
-  const { body, documentElement: html } = document;
-  return Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight
-  );
-};
+import { End } from "./End";
+import { getScrollTop, getDocumentHeight } from "../common/domfunctions";
 
 export class App extends React.Component {
-  state = { images: [], page: 1, term: "", isLoading: false, totalPages: 0 };
+  state = {
+    images: [],
+    page: 1,
+    term: "",
+    isLoading: false,
+    totalPages: 0,
+    isScrolledToBottom: false
+  };
 
   componentDidMount = () => {
     window.addEventListener("scroll", this.onScrollHandler);
   };
 
   onScrollHandler = () => {
-    if (getScrollTop() < getDocumentHeight() - window.innerHeight) return;
-    if (this.state.page >= this.state.totalPages) return;
+    if (getScrollTop() < getDocumentHeight() - window.innerHeight) {
+      this.setState({ isScrolledToBottom: false });
+      return;
+    }
+
+    if (this.state.page >= this.state.totalPages) {
+      this.setState({ isScrolledToBottom: true });
+      return;
+    }
+
     if (this.state.term !== "" && !this.state.isLoading) {
       this.setState({ isLoading: true }, async () => {
         const response = await unsplash.get(`/search/photos/`, {
@@ -56,7 +55,6 @@ export class App extends React.Component {
         const response = await unsplash.get(`/search/photos/`, {
           params: { query: term, per_page: 10, page: 1 }
         });
-        console.log(response);
         this.setState({
           images: response.data.results,
           term: term,
@@ -72,14 +70,14 @@ export class App extends React.Component {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-
-        {this.state.page >= this.state.totalPages ? (
-          <div>Finished</div>
-        ) : (
-          <div>{`${this.state.page} / ${this.state.totalPages}`}</div>
-        )}
         <ImageList images={this.state.images} />
         <Spinner isLoading={this.state.isLoading} />
+        <End
+          isEnd={
+            this.state.isScrolledToBottom &&
+            this.state.page >= this.state.totalPages
+          }
+        />
       </div>
     );
   }
