@@ -1,6 +1,6 @@
 import "./ImageList.css";
 
-import { ImageColumn } from "./ImageColumn";
+import { ImageColumn } from "../ImageColumn/ImageColumn";
 import React from "react";
 
 export const ImageList = ({ columns }) => {

@@ -1,9 +1,9 @@
 import React from "react";
-import { SearchBar } from "../components/SearchBar";
+import { SearchBar } from "../components/SearchBar/SearchBar";
 import { unsplash } from "../api/unsplash";
-import { ImageList } from "../components/ImageList";
-import { Spinner } from "../components/Spinner";
-import { End } from "../components/End";
+import { ImageList } from "../components/ImageList/ImageList";
+import { Spinner } from "../components/Spinner/Spinner";
+import { End } from "../components/End/End";
 import { getScrollTop, getDocumentHeight } from "../common/domfunctions";
 
 export class App extends React.Component {
