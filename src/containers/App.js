@@ -9,7 +9,9 @@ import { getScrollTop, getDocumentHeight } from "../common/domfunctions";
 export class App extends React.Component {
   state = {
     images: [],
+    TEMP_IMAGES: [],
     page: 1,
+    columns: 4,
     term: "",
     isLoading: false,
     totalPages: 0,
@@ -18,6 +20,26 @@ export class App extends React.Component {
 
   componentDidMount = () => {
     window.addEventListener("scroll", this.onScrollHandler);
+
+    this.setState({
+      TEMP_IMAGES: Array.from({ length: this.state.columns }, () => [])
+    });
+  };
+
+  allocateImages = results => {
+    const TEMP_IMAGES = this.state.TEMP_IMAGES;
+    for (let i = 0; i < results.length; i++) {
+      for (let j = 0; j < TEMP_IMAGES.length; j++) {
+        if (
+          TEMP_IMAGES[j].length ===
+          Math.min(...TEMP_IMAGES.map(arr => arr.length))
+        ) {
+          TEMP_IMAGES[j].push(results[i]);
+          break;
+        }
+      }
+    }
+    return TEMP_IMAGES;
   };
 
   onScrollHandler = () => {
@@ -42,6 +64,7 @@ export class App extends React.Component {
         });
         this.setState({
           images: [...this.state.images, ...response.data.results],
+          TEMP_IMAGES: this.allocateImages(response.data.results),
           page: this.state.page + 1,
           isLoading: false
         });
@@ -57,6 +80,7 @@ export class App extends React.Component {
         });
         this.setState({
           images: response.data.results,
+          TEMP_IMAGES: this.allocateImages(response.data.results),
           term: term,
           page: 1,
           isLoading: false,
@@ -67,6 +91,7 @@ export class App extends React.Component {
   };
 
   render() {
+    console.log(this.state.TEMP_IMAGES);
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
