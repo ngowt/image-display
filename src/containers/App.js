@@ -20,7 +20,10 @@ export class App extends React.Component {
 
   componentDidMount = () => {
     window.addEventListener("scroll", this.onScrollHandler);
+    this.resetColumns();
+  };
 
+  resetColumns = () => {
     this.setState({
       TEMP_IMAGES: Array.from({ length: this.state.columns }, () => [])
     });
@@ -74,6 +77,7 @@ export class App extends React.Component {
 
   onSearchSubmit = term => {
     if (term !== "" && !this.state.isLoading) {
+      this.resetColumns();
       this.setState({ isLoading: true }, async () => {
         const response = await unsplash.get(`/search/photos/`, {
           params: { query: term, per_page: 10, page: 1 }
