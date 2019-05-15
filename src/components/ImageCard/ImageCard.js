@@ -2,16 +2,19 @@ import React from "react";
 import "./ImageCard.css";
 
 export const ImageCard = ({ image }) => {
-  console.log(image);
   const { alt_description, urls, likes, user, links, color } = image;
   return (
     <div className="img-card__div">
       <div className="ui card">
         <div className="content" style={{ backgroundColor: color }}>
-          <a href={user.links.html} target="_blank">
-            <img className="ui avatar image" src={user.profile_image.small} />
+          <a href={user.links.html} target="_blank" rel="noopener noreferrer">
+            <img
+              className="ui avatar image"
+              src={user.profile_image.small}
+              alt={alt_description}
+            />
           </a>
-          <a href={user.links.html} target="_blank">
+          <a href={user.links.html} target="_blank" rel="noopener noreferrer">
             {user.name}
           </a>
         </div>
@@ -24,7 +27,7 @@ export const ImageCard = ({ image }) => {
         </div>
         <div className="content">
           <span className="right floated">
-            <a href={links.download} target="_blank">
+            <a href={links.download} target="_blank" rel="noopener noreferrer">
               <i className="download icon" />
             </a>
           </span>
