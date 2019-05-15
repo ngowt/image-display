@@ -5,6 +5,7 @@ import { ImageList } from "../components/ImageList/ImageList";
 import { Spinner } from "../components/Spinner/Spinner";
 import { End } from "../components/End/End";
 import { getScrollTop, getDocumentHeight } from "../common/domfunctions";
+import randomWords from "random-words";
 
 export class App extends React.Component {
   state = {
@@ -20,6 +21,7 @@ export class App extends React.Component {
   componentDidMount = () => {
     window.addEventListener("scroll", this.onScrollHandler);
     this.resetColumns();
+    this.onSearchSubmit(randomWords());
   };
 
   resetColumns = () => {
