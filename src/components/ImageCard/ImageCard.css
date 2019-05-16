@@ -1,14 +1,15 @@
 .img-card__div {
-  margin-bottom: 8px;
   font-family: "Baloo Bhai", cursive;
+  margin-bottom: 3%;
 }
 
 .img-card__div-1 {
   min-width: 100%;
+  width: 100% !important;
 }
 
 .img-card__div-2 {
-  min-width: 100%;
+  min-width: 50%;
   width: 100% !important;
 }
 
