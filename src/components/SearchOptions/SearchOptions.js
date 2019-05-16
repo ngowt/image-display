@@ -9,11 +9,6 @@ const columnOptions = [
 ];
 
 export class SearchOptions extends React.Component {
-  state = {
-    default: "",
-    false: ""
-  };
-
   handleChange = (e, { value }) => this.props.onSettingChangeEvent(value);
 
   render = () => {
@@ -21,12 +16,8 @@ export class SearchOptions extends React.Component {
       <Dropdown
         button
         className="icon"
-        text="Options"
         icon="setting"
-        floating
-        labeled
         options={columnOptions}
-        search
         onChange={this.handleChange}
       />
     );
