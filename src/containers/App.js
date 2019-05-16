@@ -1,4 +1,5 @@
 import React from "react";
+import { ImageModal } from "../components/ImageModal/ImageModal";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { unsplash } from "../api/unsplash";
 import { ImageList } from "../components/ImageList/ImageList";
@@ -15,7 +16,9 @@ export class App extends React.Component {
     term: "",
     isLoading: false,
     totalPages: 0,
-    isScrolledToBottom: false
+    isScrolledToBottom: false,
+    showModal: false,
+    focusedImage: ""
   };
 
   componentDidMount = () => {
@@ -45,6 +48,11 @@ export class App extends React.Component {
 
   unallocateImages = source => {
     return source.reduce((acc, cv) => [...acc, ...cv]);
+  };
+
+  onImageClickedHandler = (e, image) => {
+    console.log(e, image);
+    this.setState({ focusedImage: image, showModal: true });
   };
 
   onScrollHandler = () => {
@@ -127,9 +135,14 @@ export class App extends React.Component {
           onSubmit={this.onSearchSubmit}
           onSettingChangeEvent={this.onSettingChangeHandler}
         />
+        <ImageModal
+          image={this.state.focusedImage}
+          open={this.state.showModal}
+        />
         <ImageList
           imageColumns={this.state.images}
           numColumns={this.state.columns}
+          onImageClickedEvent={this.onImageClickedHandler}
         />
         <Spinner isLoading={this.state.isLoading} />
         <End

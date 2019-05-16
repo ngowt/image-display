@@ -1,7 +1,8 @@
 import React from "react";
+import { ImageModal } from "../ImageModal/ImageModal";
 import "./ImageCard.css";
 
-export const ImageCard = ({ image, numColumns }) => {
+export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
   const { alt_description, urls, likes, user, links, color } = image;
   return (
     <div className="img-card__div">
@@ -23,6 +24,7 @@ export const ImageCard = ({ image, numColumns }) => {
             className="img-card__img"
             alt={alt_description}
             src={urls.regular}
+            onClick={e => onImageClickedEvent(e, image)}
           />
         </div>
         <div className="content">
