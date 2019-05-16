@@ -7,12 +7,15 @@ export const ImageList = ({
   numColumns,
   onImageClickedEvent
 }) => {
+  const onImageClickedEventHandler = image => {
+    onImageClickedEvent(image);
+  };
   const cols = imageColumns.map((column, index) => (
     <ImageColumn
       key={`col-${index}`}
       images={column}
       numColumns={numColumns}
-      onImageClickedEvent={onImageClickedEvent}
+      onImageClickedEvent={onImageClickedEventHandler}
     />
   ));
   return <div className="image-list">{cols}</div>;

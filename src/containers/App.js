@@ -50,8 +50,7 @@ export class App extends React.Component {
     return source.reduce((acc, cv) => [...acc, ...cv]);
   };
 
-  onImageClickedHandler = (e, image) => {
-    console.log(e, image);
+  onImageClickedHandler = image => {
     this.setState({ focusedImage: image, showModal: true });
   };
 
@@ -137,7 +136,8 @@ export class App extends React.Component {
         />
         <ImageModal
           image={this.state.focusedImage}
-          open={this.state.showModal}
+          showModal={this.state.showModal}
+          closeEvent={() => this.setState({ showModal: false })}
         />
         <ImageList
           imageColumns={this.state.images}
