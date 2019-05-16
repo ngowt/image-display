@@ -30,17 +30,18 @@ export class App extends React.Component {
     });
   };
 
-  allocateImages = results => {
-    const images = this.state.images;
-    for (let i = 0; i < results.length; i++) {
-      for (let j = 0; j < images.length; j++) {
-        if (images[j].length === Math.min(...images.map(arr => arr.length))) {
-          images[j].push(results[i]);
+  allocateImages = (results, source) => {
+    const copy = [...source];
+    results.forEach(img => {
+      for (let j = 0; j < source.length; j++) {
+        if (source[j].length === Math.min(...copy.map(arr => arr.length))) {
+          copy[j].push(img);
           break;
         }
       }
-    }
-    return images;
+    });
+
+    return copy;
   };
 
   onScrollHandler = () => {
@@ -64,12 +65,16 @@ export class App extends React.Component {
           }
         });
         this.setState({
-          images: this.allocateImages(response.data.results),
+          images: this.allocateImages(response.data.results, this.state.images),
           page: this.state.page + 1,
           isLoading: false
         });
       });
     }
+  };
+
+  onSettingChangeHandler = val => {
+    console.log(val);
   };
 
   onSearchSubmit = term => {
@@ -80,7 +85,7 @@ export class App extends React.Component {
           params: { query: term, per_page: 10, page: 1 }
         });
         this.setState({
-          images: this.allocateImages(response.data.results),
+          images: this.allocateImages(response.data.results, this.state.images),
           term: term,
           page: 1,
           isLoading: false,
@@ -93,7 +98,10 @@ export class App extends React.Component {
   render() {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
-        <SearchBar onSubmit={this.onSearchSubmit} />
+        <SearchBar
+          onSubmit={this.onSearchSubmit}
+          onSettingChangeEvent={this.onSettingChangeHandler}
+        />
         <ImageList
           imageColumns={this.state.images}
           numColumns={this.state.columns}
