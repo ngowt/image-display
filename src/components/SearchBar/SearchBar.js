@@ -9,10 +9,6 @@ export class SearchBar extends React.Component {
     this.props.onSubmit(this.state.term);
   };
 
-  onSettingChangeHandler = val => {
-    console.log(val);
-  };
-
   render() {
     return (
       <div className="ui segment">
@@ -24,7 +20,9 @@ export class SearchBar extends React.Component {
               value={this.state.term}
               onChange={e => this.setState({ term: e.target.value })}
             />
-            <SearchOptions onSettingChangeEvent={this.onSettingChangeHandler} />
+            <SearchOptions
+              onSettingChangeEvent={this.props.onSettingChangeEvent}
+            />
             <button
               className="ui button primary"
               onClick={e => this.onFormSubmit(e)}
