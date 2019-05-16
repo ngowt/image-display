@@ -3,7 +3,7 @@ import { Button, Image, Modal, Icon, Statistic } from "semantic-ui-react";
 import "./ImageModal.css";
 
 export const ImageModal = ({ image, showModal, closeEvent }) => {
-  const { urls, user, likes } = image;
+  const { urls, user, likes, links } = image;
   console.log(image);
   return (
     <div>
@@ -34,7 +34,7 @@ export const ImageModal = ({ image, showModal, closeEvent }) => {
         <Modal.Content image>
           <Image wrapped src={urls ? urls.regular : ""} />
         </Modal.Content>
-        <Modal.Actions>
+        <Modal.Content>
           <Statistic.Group>
             <Statistic>
               <Statistic.Value>
@@ -58,6 +58,20 @@ export const ImageModal = ({ image, showModal, closeEvent }) => {
               <Statistic.Label>Views</Statistic.Label>
             </Statistic>
           </Statistic.Group>
+        </Modal.Content>
+        <Modal.Actions>
+          <a
+            href={links ? links.download : ""}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button color="green" onClick={closeEvent} inverted>
+              <Icon name="download" /> Download
+            </Button>
+          </a>
+          <Button color="red" onClick={closeEvent} inverted>
+            <Icon name="remove" /> Close
+          </Button>
         </Modal.Actions>
       </Modal>
     </div>
