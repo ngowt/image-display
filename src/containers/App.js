@@ -94,7 +94,10 @@ export class App extends React.Component {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <SearchBar onSubmit={this.onSearchSubmit} />
-        <ImageList columns={this.state.images} />
+        <ImageList
+          imageColumns={this.state.images}
+          numColumns={this.state.columns}
+        />
         <Spinner isLoading={this.state.isLoading} />
         <End
           isEnd={
