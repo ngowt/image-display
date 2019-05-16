@@ -1,11 +1,11 @@
 import React from "react";
 import "./ImageCard.css";
 
-export const ImageCard = ({ image }) => {
+export const ImageCard = ({ image, numColumns }) => {
   const { alt_description, urls, likes, user, links, color } = image;
   return (
     <div className="img-card__div">
-      <div className="ui card">
+      <div className={`ui card img-card__div-${numColumns}`}>
         <div className="content" style={{ backgroundColor: color }}>
           <a href={user.links.html} target="_blank" rel="noopener noreferrer">
             <img
