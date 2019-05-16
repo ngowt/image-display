@@ -30,17 +30,21 @@ export class App extends React.Component {
     });
   };
 
-  allocateImages = (results, source) => {
+  allocateImages = (results, source, numColumns) => {
     const copy = [...source];
     results.forEach(img => {
-      for (let j = 0; j < source.length; j++) {
-        if (source[j].length === Math.min(...copy.map(arr => arr.length))) {
+      for (let j = 0; j < numColumns; j++) {
+        if (copy[j].length === Math.min(...copy.map(arr => arr.length))) {
           copy[j].push(img);
           break;
         }
       }
     });
     return copy;
+  };
+
+  unallocateImages = source => {
+    return source.reduce((acc, cv) => [...acc, ...cv]);
   };
 
   onScrollHandler = () => {
@@ -64,7 +68,11 @@ export class App extends React.Component {
           }
         });
         this.setState({
-          images: this.allocateImages(response.data.results, this.state.images),
+          images: this.allocateImages(
+            response.data.results,
+            this.state.images,
+            this.state.columns
+          ),
           page: this.state.page + 1,
           isLoading: false
         });
@@ -73,7 +81,21 @@ export class App extends React.Component {
   };
 
   onSettingChangeHandler = val => {
-    console.log(val);
+    const unallocatedImages = this.unallocateImages(this.state.images);
+    this.setState(
+      {
+        columns: val,
+        images: Array.from({ length: val }, () => [])
+      },
+      () =>
+        this.setState({
+          images: this.allocateImages(
+            unallocatedImages,
+            this.state.images,
+            this.state.columns
+          )
+        })
+    );
   };
 
   onSearchSubmit = term => {
@@ -84,7 +106,11 @@ export class App extends React.Component {
           params: { query: term, per_page: 10, page: 1 }
         });
         this.setState({
-          images: this.allocateImages(response.data.results, this.state.images),
+          images: this.allocateImages(
+            response.data.results,
+            this.state.images,
+            this.state.columns
+          ),
           term: term,
           page: 1,
           isLoading: false,
