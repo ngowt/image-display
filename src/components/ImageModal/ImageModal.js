@@ -4,7 +4,6 @@ import "./ImageModal.css";
 
 export const ImageModal = ({ image, showModal, closeEvent }) => {
   const { urls, user, likes, links } = image;
-  console.log(image);
   return (
     <div>
       <Modal dimmer="blurring" open={showModal} onClose={closeEvent} closeIcon>
