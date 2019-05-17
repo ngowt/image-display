@@ -7,9 +7,11 @@ export class ImageModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      likes: this.props.image.likes,
-      downloads: 0,
-      views: 0
+      statistics: {
+        likes: { total: this.props.image.likes, change: 0 },
+        downloads: { total: 0, change: 0 },
+        views: { total: 0, change: 0 }
+      }
     };
   }
 
@@ -17,9 +19,20 @@ export class ImageModal extends React.Component {
     const { id } = this.props.image;
     const response = await unsplash.get(`/photos/${id}/statistics`);
     this.setState({
-      likes: response.data.likes.total,
-      downloads: response.data.downloads.total,
-      views: response.data.views.total
+      statistics: {
+        likes: {
+          total: response.data.likes.total,
+          change: response.data.likes.historical.change
+        },
+        downloads: {
+          total: response.data.downloads.total,
+          change: response.data.downloads.historical.change
+        },
+        views: {
+          total: response.data.views.total,
+          change: response.data.views.historical.change
+        }
+      }
     });
   };
 
@@ -64,11 +77,7 @@ export class ImageModal extends React.Component {
             </a>
           </Modal.Content>
           <Modal.Content>
-            <ImageStats
-              likes={this.state.likes}
-              downloads={this.state.downloads}
-              views={this.state.views}
-            />
+            <ImageStats statistics={this.state.statistics} />
           </Modal.Content>
           <Modal.Actions>
             <a href={urls.full} target="_blank" rel="noopener noreferrer">
