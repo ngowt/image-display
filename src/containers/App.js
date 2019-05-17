@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageModal } from "../components/ImageModal/ImageModal";
+import { ImageModal } from "./ImageModal/ImageModal";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { unsplash } from "../api/unsplash";
 import { ImageList } from "../components/ImageList/ImageList";
