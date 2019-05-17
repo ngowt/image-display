@@ -21,3 +21,11 @@
   min-width: 25%;
   width: 100% !important;
 }
+
+.img-card__header {
+  background-color: #f1f2ee !important;
+}
+
+.img-card__content {
+  background-color: #f1f2ee !important;
+}

@@ -18,7 +18,7 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
   return (
     <div className="img-card__div">
       <div className={`ui card img-card__div-${numColumns}`}>
-        <div className="content">
+        <div className="content img-card__header">
           <Comment.Group>
             <Comment>
               <Comment.Avatar
@@ -46,18 +46,6 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
               </Comment.Content>
             </Comment>
           </Comment.Group>
-          {/*
-          <a href={user.links.html} target="_blank" rel="noopener noreferrer">
-            <img
-              className="ui avatar image"
-              src={user.profile_image.small}
-              alt={alt_description}
-            />
-          </a>
-          <a href={user.links.html} target="_blank" rel="noopener noreferrer">
-            {user.name}
-          </a>
-          */}
         </div>
         <div className="image">
           <img
@@ -67,7 +55,7 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
             onClick={() => onImageClickedHandler(image)}
           />
         </div>
-        <div className="content">
+        <div className="content img-card__content">
           <span className="right floated">
             <a href={urls.full} target="_blank" rel="noopener noreferrer">
               <i
