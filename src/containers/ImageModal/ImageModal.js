@@ -1,7 +1,7 @@
 import React from "react";
 import { unsplash } from "../../api/unsplash";
 import { Button, Image, Modal, Icon } from "semantic-ui-react";
-import { ImageStats } from "../ImageStats/ImageStats";
+import { ImageStats } from "../../components/ImageStats/ImageStats";
 
 export class ImageModal extends React.Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export class ImageModal extends React.Component {
       views: 0
     };
   }
+
   componentDidMount = async () => {
     const { id } = this.props.image;
     const response = await unsplash.get(`/photos/${id}/statistics`);
@@ -20,6 +21,11 @@ export class ImageModal extends React.Component {
       downloads: response.data.downloads.total,
       views: response.data.views.total
     });
+  };
+
+  onDownloadHandler = () => {
+    const { id } = this.props.image;
+    unsplash.get(`/photos/${id}/download`);
   };
 
   render = () => {
@@ -53,7 +59,9 @@ export class ImageModal extends React.Component {
             </Modal.Header>
           </Modal.Header>
           <Modal.Content image>
-            <Image wrapped src={urls.regular} />
+            <a href={links.html} target="_blank" rel="noopener noreferrer">
+              <Image wrapped src={urls.regular} />
+            </a>
           </Modal.Content>
           <Modal.Content>
             <ImageStats
@@ -63,8 +71,8 @@ export class ImageModal extends React.Component {
             />
           </Modal.Content>
           <Modal.Actions>
-            <a href={links.download} target="_blank" rel="noopener noreferrer">
-              <Button color="green" onClick={closeEvent} inverted>
+            <a href={urls.full} target="_blank" rel="noopener noreferrer">
+              <Button color="green" onClick={this.onDownloadHandler} inverted>
                 <Icon name="download" /> Download
               </Button>
             </a>
