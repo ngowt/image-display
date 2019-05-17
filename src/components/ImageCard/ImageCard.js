@@ -35,7 +35,7 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
               <i className="download icon" />
             </a>
           </span>
-          <i className="heart outline like icon" />
+          <i className="red heart icon" />
           {likes} likes
         </div>
       </div>
