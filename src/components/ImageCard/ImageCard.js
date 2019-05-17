@@ -1,11 +1,19 @@
 import React from "react";
+import { unsplash } from "../../api/unsplash";
 import "./ImageCard.css";
 
 export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
-  const { alt_description, urls, likes, user, links, color } = image;
+  const { alt_description, urls, likes, user, color } = image;
+
   const onImageClickedHandler = image => {
     onImageClickedEvent(image);
   };
+
+  const onDownloadHandler = () => {
+    const { id } = image;
+    unsplash.get(`/photos/${id}/download`);
+  };
+
   return (
     <div className="img-card__div">
       <div className={`ui card img-card__div-${numColumns}`}>
@@ -24,15 +32,18 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
         <div className="image">
           <img
             className="img-card__img"
-            alt={alt_description}
             src={urls.regular}
+            alt={alt_description}
             onClick={() => onImageClickedHandler(image)}
           />
         </div>
         <div className="content">
           <span className="right floated">
-            <a href={links.download} target="_blank" rel="noopener noreferrer">
-              <i className="download icon" />
+            <a href={urls.full} target="_blank" rel="noopener noreferrer">
+              <i
+                className="download icon"
+                onClick={() => onDownloadHandler()}
+              />
             </a>
           </span>
           <i className="red heart icon" />
