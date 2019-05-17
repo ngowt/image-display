@@ -134,11 +134,13 @@ export class App extends React.Component {
           onSubmit={this.onSearchSubmit}
           onSettingChangeEvent={this.onSettingChangeHandler}
         />
-        <ImageModal
-          image={this.state.focusedImage}
-          showModal={this.state.showModal}
-          closeEvent={() => this.setState({ showModal: false })}
-        />
+        {this.state.showModal && (
+          <ImageModal
+            image={this.state.focusedImage}
+            showModal={this.state.showModal}
+            closeEvent={() => this.setState({ showModal: false })}
+          />
+        )}
         <ImageList
           imageColumns={this.state.images}
           numColumns={this.state.columns}
