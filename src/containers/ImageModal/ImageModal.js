@@ -1,7 +1,8 @@
 import React from "react";
 import { unsplash } from "../../api/unsplash";
-import { Button, Image, Modal, Icon } from "semantic-ui-react";
+import { Button, Image, Modal, Icon, Comment } from "semantic-ui-react";
 import { ImageStats } from "../../components/ImageStats/ImageStats";
+import "./ImageModal.css";
 
 export class ImageModal extends React.Component {
   constructor(props) {
@@ -52,31 +53,43 @@ export class ImageModal extends React.Component {
           onClose={closeEvent}
           closeIcon
         >
-          <Modal.Header className="modal__header">
-            <a href={user.links.html} target="_blank" rel="noopener noreferrer">
-              <Image
-                floated="left"
-                size="mini"
-                src={user.profile_image.small}
-                style={{ borderRadius: "50%" }}
-              />
-            </a>
-            <Modal.Header>
-              <a
-                href={user.links.html}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {user.name}
-              </a>
-            </Modal.Header>
+          <Modal.Header className="img-modal__header">
+            <div className="content">
+              <Comment.Group>
+                <Comment>
+                  <Comment.Avatar
+                    src={user.profile_image.small}
+                    href={user.links.html}
+                    target="_blank"
+                  />
+                  <Comment.Content>
+                    <Comment.Author href={user.links.html} target="_blank">
+                      {user.name}
+                    </Comment.Author>
+                    <Comment.Text>
+                      <a
+                        href={`https://www.instagram.com/${
+                          user.instagram_username
+                        }`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {user.instagram_username
+                          ? `@${user.instagram_username}`
+                          : ""}
+                      </a>
+                    </Comment.Text>
+                  </Comment.Content>
+                </Comment>
+              </Comment.Group>
+            </div>
           </Modal.Header>
-          <Modal.Content image>
+          <Modal.Content image className="img-modal__content">
             <a href={links.html} target="_blank" rel="noopener noreferrer">
               <Image wrapped src={urls.regular} />
             </a>
           </Modal.Content>
-          <Modal.Content>
+          <Modal.Content className="img-modal__content">
             <ImageStats statistics={this.state.statistics} />
           </Modal.Content>
           <Modal.Actions>
