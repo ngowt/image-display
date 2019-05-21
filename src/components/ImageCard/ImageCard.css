@@ -26,6 +26,11 @@
   background-color: #f1f2ee !important;
 }
 
+.img-card__img {
+  cursor: pointer;
+}
+
 .img-card__content {
   background-color: #f1f2ee !important;
 }
+
