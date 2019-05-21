@@ -1,4 +1,5 @@
 import React from "react";
+import { Header } from "../components/Header/Header";
 import { ImageModal } from "./ImageModal/ImageModal";
 import { SearchBar } from "../components/SearchBar/SearchBar";
 import { unsplash } from "../api/unsplash";
@@ -130,6 +131,7 @@ export class App extends React.Component {
   render() {
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
+        <Header />
         <SearchBar
           onSubmit={this.onSearchSubmit}
           onSettingChangeEvent={this.onSettingChangeHandler}
