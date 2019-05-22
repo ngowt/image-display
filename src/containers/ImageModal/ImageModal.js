@@ -46,64 +46,63 @@ export class ImageModal extends React.Component {
     const { image, showModal, closeEvent } = this.props;
     const { urls, user, links } = image;
     return (
-      <div>
-        <Modal
-          dimmer="blurring"
-          open={showModal}
-          onClose={closeEvent}
-          closeIcon
-        >
-          <Modal.Header className="img-modal__header">
-            <div className="content">
-              <Comment.Group>
-                <Comment>
-                  <Comment.Avatar
-                    src={user.profile_image.small}
-                    href={user.links.html}
-                    target="_blank"
-                  />
-                  <Comment.Content>
-                    <Comment.Author href={user.links.html} target="_blank">
-                      {user.name}
-                    </Comment.Author>
-                    <Comment.Text>
-                      <a
-                        href={`https://www.instagram.com/${
-                          user.instagram_username
-                        }`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {user.instagram_username
-                          ? `@${user.instagram_username}`
-                          : ""}
-                      </a>
-                    </Comment.Text>
-                  </Comment.Content>
-                </Comment>
-              </Comment.Group>
-            </div>
-          </Modal.Header>
-          <Modal.Content image className="img-modal__content">
-            <a href={links.html} target="_blank" rel="noopener noreferrer">
-              <Image wrapped src={urls.regular} />
-            </a>
-          </Modal.Content>
-          <Modal.Content className="img-modal__content">
-            <ImageStats statistics={this.state.statistics} />
-          </Modal.Content>
-          <Modal.Actions>
-            <a href={urls.full} target="_blank" rel="noopener noreferrer">
-              <Button color="green" onClick={this.onDownloadHandler} inverted>
-                <Icon name="download" /> Download
-              </Button>
-            </a>
-            <Button color="red" onClick={closeEvent} inverted>
-              <Icon name="remove" /> Close
+      <Modal
+        className="animated zoomIn fastest"
+        dimmer="blurring"
+        open={showModal}
+        onClose={closeEvent}
+        closeIcon
+      >
+        <Modal.Header className="img-modal__header">
+          <div className="content">
+            <Comment.Group>
+              <Comment>
+                <Comment.Avatar
+                  src={user.profile_image.small}
+                  href={user.links.html}
+                  target="_blank"
+                />
+                <Comment.Content>
+                  <Comment.Author href={user.links.html} target="_blank">
+                    {user.name}
+                  </Comment.Author>
+                  <Comment.Text>
+                    <a
+                      href={`https://www.instagram.com/${
+                        user.instagram_username
+                      }`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {user.instagram_username
+                        ? `@${user.instagram_username}`
+                        : ""}
+                    </a>
+                  </Comment.Text>
+                </Comment.Content>
+              </Comment>
+            </Comment.Group>
+          </div>
+        </Modal.Header>
+        <Modal.Content image className="img-modal__content">
+          <a href={links.html} target="_blank" rel="noopener noreferrer">
+            <Image wrapped src={urls.regular} />
+          </a>
+        </Modal.Content>
+        <Modal.Content className="img-modal__content">
+          <ImageStats statistics={this.state.statistics} />
+        </Modal.Content>
+        <Modal.Actions>
+          <a href={urls.full} target="_blank" rel="noopener noreferrer">
+            <Button color="green" onClick={this.onDownloadHandler} inverted>
+              <Icon name="download" /> Download
             </Button>
-          </Modal.Actions>
-        </Modal>
-      </div>
+          </a>
+          <Button color="red" onClick={closeEvent} inverted>
+            <Icon name="remove" /> Close
+          </Button>
+        </Modal.Actions>
+      </Modal>
     );
   };
 }

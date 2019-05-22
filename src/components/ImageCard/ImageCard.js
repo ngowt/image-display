@@ -16,9 +16,9 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
   };
 
   return (
-    <div className="img-card__div">
+    <div className="img-card__div animated slideInUp">
       <div className={`ui card img-card__div-${numColumns}`}>
-        <div className="content img-card__header">
+        <div className="content img-card__header animated fadeIn slower">
           <Comment.Group>
             <Comment>
               <Comment.Avatar
@@ -47,7 +47,7 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
             </Comment>
           </Comment.Group>
         </div>
-        <div className="image">
+        <div className="image animated fadeIn slower">
           <img
             className="img-card__img"
             src={urls.regular}
@@ -55,7 +55,7 @@ export const ImageCard = ({ image, numColumns, onImageClickedEvent }) => {
             onClick={() => onImageClickedHandler(image)}
           />
         </div>
-        <div className="content img-card__content">
+        <div className="content img-card__content animated fadeIn slower">
           <span className="right floated">
             <a href={urls.full} target="_blank" rel="noopener noreferrer">
               <i
