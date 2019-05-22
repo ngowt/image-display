@@ -2,3 +2,8 @@ html,
 body {
   background-color: #2f383b;
 }
+
+.animated.fastest {
+  -webkit-animation-duration: 250ms;
+  animation-duration: 250ms;
+}
