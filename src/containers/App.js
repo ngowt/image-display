@@ -61,21 +61,15 @@ export class App extends React.Component {
   };
 
   onResizeHandler = () => {
-    /*
     if (getDocumentWidth() >= 1200 && this.state.columns !== 4) {
-      this.setState({ columns: 4});
       this.onSettingChangeHandler(4);
-    } else if (getDocumentWidth() >= 992 && getDocumentWidth < 1200 && this.state.columns !== 3) {
-      this.setState({ columns: 3});
+    } else if (getDocumentWidth() >= 992 && getDocumentWidth() < 1200 && this.state.columns !== 3) {
       this.onSettingChangeHandler(3);
-    } else if (getDocumentWidth() >= 539 && getDocumentWidth < 992 && this.state.columns !== 2) {
-      this.setState({ columns: 2});
+    } else if (getDocumentWidth() >= 539 && getDocumentWidth() < 992 && this.state.columns !== 2) {
       this.onSettingChangeHandler(2);
     } else if (getDocumentWidth() < 539 && this.state.columns !== 1) {
-      this.setState({ columns: 1});
       this.onSettingChangeHandler(1);
     }
-    */
   };
 
   onScrollHandler = () => {
