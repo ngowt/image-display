@@ -6,14 +6,18 @@ import { unsplash } from "../api/unsplash";
 import { ImageList } from "../components/ImageList/ImageList";
 import { Spinner } from "../components/Spinner/Spinner";
 import { End } from "../components/End/End";
-import { getScrollTop, getDocumentHeight } from "../common/domfunctions";
+import {
+  getScrollTop,
+  getDocumentHeight,
+  getDocumentWidth
+} from "../common/domfunctions";
 import randomWords from "random-words";
 
 export class App extends React.Component {
   state = {
     images: [],
     page: 1,
-    columns: 4,
+    columns: 1,
     term: "",
     isLoading: false,
     totalPages: 0,
@@ -24,6 +28,7 @@ export class App extends React.Component {
 
   componentDidMount = () => {
     window.addEventListener("scroll", this.onScrollHandler);
+    window.addEventListener("resize", this.onResizeHandler);
     this.resetColumns();
     this.onSearchSubmit(randomWords());
   };
@@ -53,6 +58,22 @@ export class App extends React.Component {
 
   onImageClickedHandler = image => {
     this.setState({ focusedImage: image, showModal: true });
+  };
+
+  onResizeHandler = () => {
+    if (getDocumentWidth() >= 1200 && this.state.columns !== 4) {
+      this.setState({ columns: 4});
+      this.onSettingChangeHandler(4);
+    } else if (getDocumentWidth() >= 992 && getDocumentWidth < 1200 && this.state.columns !== 3) {
+      this.setState({ columns: 3});
+      this.onSettingChangeHandler(3);
+    } else if (getDocumentWidth() >= 539 && getDocumentWidth < 992 && this.state.columns !== 2) {
+      this.setState({ columns: 2});
+      this.onSettingChangeHandler(2);
+    } else if (getDocumentWidth() < 539 && this.state.columns !== 1) {
+      this.setState({ columns: 1});
+      this.onSettingChangeHandler(1);
+    }
   };
 
   onScrollHandler = () => {
