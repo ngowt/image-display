@@ -15,3 +15,15 @@ export const getDocumentHeight = () => {
     html.offsetHeight
   );
 };
+
+export const getDocumentWidth = () => {
+  const { body, documentElement: html } = document;
+  return Math.max(
+    body.clientWidth,
+    body.offsetWidth,
+    body.scrollWidth,
+    html.clientWidth,
+    html.offsetWidth,
+    html.scrollWidth
+  );
+}
