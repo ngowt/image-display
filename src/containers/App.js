@@ -61,6 +61,7 @@ export class App extends React.Component {
   };
 
   onResizeHandler = () => {
+    /*
     if (getDocumentWidth() >= 1200 && this.state.columns !== 4) {
       this.setState({ columns: 4});
       this.onSettingChangeHandler(4);
@@ -74,6 +75,7 @@ export class App extends React.Component {
       this.setState({ columns: 1});
       this.onSettingChangeHandler(1);
     }
+    */
   };
 
   onScrollHandler = () => {
